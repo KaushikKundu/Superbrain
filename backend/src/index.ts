@@ -1,13 +1,10 @@
 import express from "express";
-import dotenv from "dotenv";
 import {connectDb} from "./db/db";
-
+    
 const app = express();
 const userRouter = express.Router();
 const contentRouter = express.Router();
 const brainRouter = express.Router();
-
-dotenv.config();
 
 //middlewares
 app.use(express.json());

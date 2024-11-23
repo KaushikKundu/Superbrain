@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
-
+import dotenv from "dotenv";
+dotenv.config();
 const MONGO_URL = process.env.MONGO_URL as string;
 export const connectDb = async () => {
     try {
@@ -30,6 +31,31 @@ const userSchema = new mongoose.Schema({
         maxLength: 10
     }
 });
+const contentSchema = new mongoose.Schema({
+    title:{
+        type: String,
+        required: true,
+    },
+    link:{
+        type: String,
+        required: true,
+    },
+    type:{
+        type: String,
+        required: true,
 
-export default mongoose.model("User", userSchema);
+    },
+    tags:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Tag",
+       
+    },
+    userId:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+    }
+})
+export const ContentModel = mongoose.model("Content", contentSchema);
+export const UserModel = mongoose.model("User", userSchema);
 
