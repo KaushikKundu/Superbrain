@@ -11,7 +11,7 @@ contentRouter.post("/",authMiddleware, async (req:Request, res:Response) : Promi
 })
 contentRouter.get("/",authMiddleware, async (req:Request, res:Response) : Promise<any> =>  {
     //@ts-ignore
-    const allContent = await ContentModel.find({req.headers.userId}); 
+    const allContent = await ContentModel.find({userId:req.headers.userId});
     if(allContent === null){
         res.status(404).json("No content found");
         return;
