@@ -1,15 +1,13 @@
 import express from "express";
 import {connectDb} from "./db/db";
     
-const app = express();
+const app = express(); 
 const userRouter = express.Router();
 const contentRouter = express.Router();
-const brainRouter = express.Router();
 
 //middlewares
 app.use(express.json());
 app.use("/api/v1", userRouter);
-app.use("/api/v1/brain", brainRouter);
 app.use("/api/v1/content", contentRouter);
 
 //routes

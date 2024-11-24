@@ -1,20 +1,16 @@
 import { Router, Request, Response } from "express";
-import { z } from "zod";
 import {ContentModel} from "../db/db";
-const contentRouter = Router();
-interface Content {
-    title: string;
-    link: string;
-    type: "document" | "tweet" | "youtube" | "link"
-    tags: string[];
-}
+import { authMiddleware } from "../middlewares/auth";
 
-contentRouter.post("/", async (req:Request, res:Response) : Promise<any> =>  {
+const contentRouter = Router();
+
+contentRouter.post("/",authMiddleware, async (req:Request, res:Response) : Promise<any> =>  {
     const { title, link, type } = req.body;
     const newContent = await ContentModel.create({ title, link, type, tags:[] });
     res.status(201).json(newContent);
 })
-contentRouter.get("/", async (req:Request, res:Response) : Promise<any> =>  {
+contentRouter.get("/",authMiddleware, async (req:Request, res:Response) : Promise<any> =>  {
+    //@ts-ignore
     const allContent = await ContentModel.find({req.headers.userId}); 
     if(allContent === null){
         res.status(404).json("No content found");
@@ -22,6 +18,13 @@ contentRouter.get("/", async (req:Request, res:Response) : Promise<any> =>  {
     }
     res.status(200).json(allContent);
 })
+
 contentRouter.delete("/:id", async (req:Request, res:Response) : Promise<any> =>  {
-    const { id } = req.params;
+    const content = await ContentModel.findById(req.params.id);
+    if(content === null){
+        res.status(404).json("Content not found");
+        return;
+    }
+    await ContentModel.deleteOne({_id:req.params.id});
+    res.status(200).json("Content deleted");
 })
