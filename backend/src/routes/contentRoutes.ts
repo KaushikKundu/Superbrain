@@ -28,3 +28,5 @@ contentRouter.delete("/:id", async (req:Request, res:Response) : Promise<any> =>
     await ContentModel.deleteOne({_id:req.params.id});
     res.status(200).json("Content deleted");
 })
+
+export default contentRouter;

@@ -13,22 +13,14 @@ export const connectDb = async () => {
 };
 
 const userSchema = new mongoose.Schema({
-    name:{
+    username:{
         type: String,
         required: true,
-        minLength: 3,
-        maxLength: 10,
-    },
-    email: {
-        type: String,
-        required: true,
-        unique: true,
+        unique:true
     },
     password: {
         type: String,
         required: true,
-        minLength: 6,
-        maxLength: 10
     }
 });
 const contentSchema = new mongoose.Schema({

@@ -1,16 +1,15 @@
 import express from "express";
 import {connectDb} from "./db/db";
-    
+import userRouter from "./routes/userRoutes";
+import contentRouter from "./routes/contentRoutes";
 const app = express(); 
-const userRouter = express.Router();
-const contentRouter = express.Router();
 
 //middlewares
 app.use(express.json());
 app.use("/api/v1", userRouter);
 app.use("/api/v1/content", contentRouter);
 
-//routes
+//route
 app.get("/", (req,res) => {
     res.send("Hello World");
 })
