@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -10,9 +10,7 @@ export const authMiddleware  = async (req:Request, res:Response, next:NextFuncti
         res.status(401).json("Unauthorized");
         return;
     }
-    //@ts-ignore
-    req.headers.userId = decoded.id;
+    req.userId = (decoded as JwtPayload).ID;
     next();
     res.status(200).json("Authenticated");
 }
-

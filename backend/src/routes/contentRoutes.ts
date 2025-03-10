@@ -6,11 +6,12 @@ const contentRouter = Router();
 
 contentRouter.post("/",authMiddleware, async (req:Request, res:Response) : Promise<any> =>  {
     const { title, link, type } = req.body;
-    const newContent = await ContentModel.create({ title, link, type, tags:[] });
+    const userId =req.userId;
+    console.log(userId);
+    const newContent = await ContentModel.create({ title, link, type, tags:[], userId });
     res.status(201).json(newContent);
 })
 contentRouter.get("/",authMiddleware, async (req:Request, res:Response) : Promise<any> =>  {
-    //@ts-ignore
     const allContent = await ContentModel.find({userId:req.headers.userId});
     if(allContent === null){
         res.status(404).json("No content found");
