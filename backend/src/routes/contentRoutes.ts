@@ -12,22 +12,24 @@ contentRouter.post("/",authMiddleware, async (req:Request, res:Response) : Promi
     res.status(201).json(newContent);
 })
 contentRouter.get("/",authMiddleware, async (req:Request, res:Response) : Promise<any> =>  {
-    const allContent = await ContentModel.find({userId:req.headers.userId});
-    if(allContent === null){
-        res.status(404).json("No content found");
-        return;
-    }
-    res.status(200).json(allContent);
+   const allContent = await ContentModel.find({
+    userId:req.userId
+   }).populate("userId","username");
+   res.status(200).json(allContent);
 })
 
-contentRouter.delete("/:id", async (req:Request, res:Response) : Promise<any> =>  {
-    const content = await ContentModel.findById(req.params.id);
-    if(content === null){
-        res.status(404).json("Content not found");
-        return;
+contentRouter.delete("/",authMiddleware, async (req:Request, res:Response) : Promise<any> =>  {
+    //const content = await ContentModel.findById(req.params.id);
+    const contentId = req.body.contentId;
+    try{
+        const deleted = await ContentModel.findOneAndDelete({
+            _id:contentId,
+            userId:req.userId
+        });
+        res.status(200).json(deleted);
+    }catch(e){
+        res.status(500).json(e)
     }
-    await ContentModel.deleteOne({_id:req.params.id});
-    res.status(200).json("Content deleted");
 })
 
 export default contentRouter;
