@@ -4,7 +4,7 @@ import "../index.css"
 interface ButtonProps {
     variant: "primary" | "secondary"
     className?: string
-    text:string
+    text?:string 
     startIcon?:ReactElement
 }
 const variantClasses = {
@@ -19,6 +19,7 @@ export function Button({variant,text,startIcon}:ButtonProps){
             <div className="pr-2">
             {startIcon}
             </div>
+            {text}
         </button>
     )
 }
