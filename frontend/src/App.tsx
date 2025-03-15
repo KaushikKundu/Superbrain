@@ -2,6 +2,7 @@
 import { Twitter, Video, FileText, Link2, Hash, Share2, Trash2, Plus, Brain } from "lucide-react"
 import { Button } from './components/Button'
 import Card from "./components/Card"
+import Sidebar from "./components/Sidebar"
 import "./index.css"
 interface Note {
   title: string
@@ -15,13 +16,14 @@ interface Note {
 export default function App() {
 
   return (
-    <div className="flex h-screen bg-white">
-      <main className="flex-1 p-8">
+    <div>
+      <Sidebar/>
+      <main className="flex-1 p-8 ml-64">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-2xl font-bold">All Notes</h1>
           <div className="flex gap-2">
-            <Button variant="secondary" text="Share content" startIcon={<Share2 />}></Button>
-            <Button variant="primary" text="Add content" startIcon={<Plus />}></Button>
+            <Button variant="secondary" text="Share content" startIcon={<Share2 size={18}/>}></Button>
+            <Button variant="primary" text="Add content" startIcon={<Plus size={20} />}></Button>
           </div>
         </div>
 

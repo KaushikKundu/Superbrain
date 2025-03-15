@@ -1,7 +1,7 @@
 import { Share2, Trash2 } from 'lucide-react';
 import { Tweet } from 'react-tweet';
 import YouTube, { YouTubeProps } from 'react-youtube';
-import {Button} from '../components/Button';
+import { Button } from '../components/Button';
 interface CardProps {
     title: string;
     link: string;
@@ -30,38 +30,36 @@ const Card = ({ title, link, type }: CardProps) => {
     }
     const styles = "w-full h-full cursor-pointer";
     return (
-        <div>
-            <div className="border rounded-lg p-4 space-y-4">
-                <div className="flex justify-between items-start">
-                    <h3 className="font-semibold">{title}</h3>
-                    <div className="flex gap-2">
-                       <Button startIcon={<Share2/>} variant='primary'></Button>
-                       <Button startIcon={<Trash2/>} variant='secondary'></Button>
+        <div className="border rounded-lg p-3 space-y-2">
+            <div className="flex justify-between items-start">
+                <h3 className="text-2xl font-semibold">{title}</h3>
+                <div className="flex gap-2">
+                    <Button startIcon={<Share2 size={14} />} variant='primary'></Button>
+                    <Button startIcon={<Trash2 size={14} />} variant='secondary'></Button>
+                </div>
+            </div>
+            <div>
+                {
+                    type === "twitter" &&
+                    <div className={styles}>
+                        <Tweet id={getTweetId(link)}></Tweet>
                     </div>
-                </div>
-                <div>
-                    {
-                        type === "twitter" &&
-                        <div className={styles}>
-                            <Tweet id={getTweetId(link)}></Tweet>
-                        </div>
-                    }
-                    {
-                        type === "youtube" && <div onClick={handleClick} className={styles} >
-                            <YouTube videoId={getYouTubeVideoId(link)} opts={options} id='video' />
-                        </div>
-                    }
-
-                </div>
-
-                <div className="space-y-2">
-                    <div className="flex flex-wrap gap-2">
-                        <span className="text-indigo-600 text-sm bg-indigo-50 px-2 py-1 rounded-md">
-                           
-                        </span>
+                }
+                {
+                    type === "youtube" && <div onClick={handleClick} className={styles} >
+                        <YouTube videoId={getYouTubeVideoId(link)} opts={options} id='video' />
                     </div>
-                    <p className="text-sm text-gray-500"></p>
+                }
+
+            </div>
+
+            <div className="space-y-2">
+                <div className="flex flex-wrap gap-2">
+                    <span className="text-indigo-600 text-sm bg-indigo-50 px-2 py-1 rounded-md">
+
+                    </span>
                 </div>
+                <p className="text-sm text-gray-500"></p>
             </div>
         </div>
     );
