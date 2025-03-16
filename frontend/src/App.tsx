@@ -11,14 +11,14 @@ export default function App() {
   const [modalOpen, setModalOpen] = useState(true);
   return (
     <div>
-      <ContentModal open={true} onClose={() => setModalOpen(false)}/>
-      <Sidebar/>
+      <Sidebar />
+      <ContentModal open={modalOpen} onClose={() => { setModalOpen(false) }} />
       <main className="flex-1 p-8 ml-64 bg-gray-100">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-2xl font-bold">All Notes</h1>
           <div className="flex gap-2">
-            <Button variant="secondary" text="Share content" startIcon={<Share2 size={18}/>}></Button>
-            <Button variant="primary" text="Add content" startIcon={<Plus size={20} onClick={() => setModalOpen(true)} />}></Button>
+            <Button variant="secondary" text="Share content" startIcon={<Share2 size={18} />}></Button>
+            <Button variant="primary" text="Add content" startIcon={<Plus size={20} />} onClick={() => setModalOpen(true)}></Button>
           </div>
         </div>
 

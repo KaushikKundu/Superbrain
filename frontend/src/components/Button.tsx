@@ -14,9 +14,9 @@ const variantClasses = {
 }
 const defaultStyles = "flex px-4 py-2 rounded-md font-semibold items-center cursor-pointer"
 
-export function Button({variant,text,startIcon}:ButtonProps){
+export function Button({variant,text,startIcon,onClick}:ButtonProps){
     return (
-        <button className={variantClasses[variant]+ " " + defaultStyles}>
+        <button className={variantClasses[variant]+ " " + defaultStyles} onClick={onClick}>
             <div className="pr-1">
             {startIcon}
             </div>

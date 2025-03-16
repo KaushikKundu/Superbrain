@@ -1,7 +1,11 @@
 import Input from "./Input";
 import { Button } from "./Button";
 import {CircleX} from "lucide-react";
-const ContentModal = ({ open, onClose }) => {
+interface ContentModalProps {
+    open: boolean,
+    onClose: () => void;
+}
+const ContentModal = ({ open, onClose }:ContentModalProps) => {
 
     return (
         <div className="flex justify-center items-center min-h-screen bg-gray-400 ">
@@ -19,7 +23,7 @@ const ContentModal = ({ open, onClose }) => {
                         <Input placeholder="Enter content link" />
                     </div>
                     <div>
-                        <Button text="youtube" variant="" />
+                        <Button text="youtube" variant="primary" />
                     </div>
                     <div className="flex justify-center w-full">
 
@@ -33,6 +37,3 @@ const ContentModal = ({ open, onClose }) => {
 
 export default ContentModal;
 
-function useState(arg0: boolean): [any, any] {
-    throw new Error("Function not implemented.");
-}
