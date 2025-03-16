@@ -3,7 +3,7 @@ import SidebarItem from "./SidebarItem";
 import { BirdIcon, VideoIcon, File, Link} from "lucide-react";
 const Sidebar = () => {
     return ( 
-        <aside className="w-64 h-screen fixed  bg-gray-100 top-0 left-0 p-4">
+        <aside className="w-64 h-screen fixed top-0 left-0 p-4 shadow-lg ">
             <div className="flex items-center gap-2 cursor-pointer">
                 <span><Brain size={36}/></span>
                 <h1 className="text-2xl font-bold">SuperBrain</h1>

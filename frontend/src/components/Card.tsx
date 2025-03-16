@@ -28,9 +28,9 @@ const Card = ({ title, link, type }: CardProps) => {
         e.preventDefault();
         window.open(watchUrl, '_blank', "noopener,noreferrer");
     }
-    const styles = "w-full h-full cursor-pointer";
+    const styles = "w-full h-full cursor-pointer ";
     return (
-        <div className="border rounded-lg p-3 space-y-2">
+        <div className="bg-white rounded-lg p-3 space-y-2">
             <div className="flex justify-between items-start">
                 <h3 className="text-2xl font-semibold">{title}</h3>
                 <div className="flex gap-2">
