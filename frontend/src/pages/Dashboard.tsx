@@ -1,11 +1,19 @@
 import { Plus, Share2 } from "lucide-react";
 import { Button } from "../components/Button";
-import Card from "../components/Card";
 import ContentModal from "../components/ContentModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
+import { useContent } from "../hooks/useContent";
+import Card from "../components/Card";
 const Dashboard = () => {
-    const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const { contents, fetchData } = useContent();
+  useEffect(() => {
+    fetchData();
+  }, [modalOpen]);
+  if (!contents) {
+    return <div>Loading...</div>;
+  }
   return (
     <div>
       <Sidebar />
@@ -20,14 +28,15 @@ const Dashboard = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <Card title="tweets" type="twitter" link="https://x.com/naval/status/1900870844060156138"></Card>
-          <Card title="youtube" type="youtube" link="https://youtu.be/o3IqOrXtxm8?si=7bcnBM2TVSuqGEzk"></Card>
-
-
+          {
+            contents.map((content,index) =>
+              <Card title={content.title} link={content.link} type={content.type} key={index}/>
+            )
+          }
         </div>
       </main>
     </div>
   )
 }
- 
+
 export default Dashboard;
