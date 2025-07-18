@@ -11,9 +11,7 @@ const Dashboard = () => {
   useEffect(() => {
     fetchData();
   }, [modalOpen]);
-  if (!contents) {
-    return <div>Loading...</div>;
-  }
+  
   return (
     <div>
       <Sidebar />
@@ -29,7 +27,7 @@ const Dashboard = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {
-            contents.map((content,index) =>
+            contents && contents.map((content,index) =>
               <Card title={content.title} link={content.link} type={content.type} key={index}/>
             )
           }

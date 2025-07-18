@@ -56,7 +56,7 @@ userRouter.post(
                 return;
             }
             const result = await bcrypt.compare(password, existingUser.password);
-            console.log(result);
+            
             if (result == true) {
                 const token = jwt.sign(
                     { id: existingUser._id },
