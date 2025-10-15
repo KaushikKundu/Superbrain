@@ -13,7 +13,7 @@ export const connectDb = async () => {
     }
 };
 
-const userSchema = new mongoose.Schema({
+export const userSchema = new mongoose.Schema({
     username:{
         type: String,
         required: true,
@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema({
         required: true,
     }
 });
-const contentSchema = new mongoose.Schema({
+export const contentSchema = new mongoose.Schema({
     title:{
         type: String,
         required: true,

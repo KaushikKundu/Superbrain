@@ -1,5 +1,5 @@
 import express from "express";
-import {connectDb} from "./db/db";
+import {connectDb} from "./db";
 import userRouter from "./routes/authRoutes";
 import contentRouter from "./routes/contentRoutes";
 import brainRouter from "./routes/brainRoutes"

@@ -1,5 +1,5 @@
 import { Router, Request, Response } from "express";
-import {ContentModel} from "../db/db";
+import {ContentModel} from "../db";
 import { authMiddleware } from "../middlewares/auth";
 
 const  brainRouter = Router();

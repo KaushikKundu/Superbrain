@@ -1,13 +1,16 @@
-import { User, Lock, EyeOff, Eye, ArrowRight } from "lucide-react";
+import { User, EyeOff, Eye, ArrowRight } from "lucide-react";
 import { useState } from "react";
 
-const SignIn: React.FC<{
-    onSignIn: (username: string, password: string) => void;
+export const SignUp: React.FC<{
+    onSignUp: (username: string, password: string) => void;
     onSwitchMode: () => void;
     error: string;
     success: string;
-}> = ({ onSignIn, onSwitchMode, error, success }) => {
-    const [formData, setFormData] = useState({ username: '', password: '' });
+}> = ({ onSignUp, onSwitchMode, error, success }) => {
+    const [formData, setFormData] = useState({
+        username: '',
+        password: ''
+    });
     const [showPassword, setShowPassword] = useState(false);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -15,33 +18,20 @@ const SignIn: React.FC<{
     };
 
     const handleSubmit = () => {
-        onSignIn(formData.username, formData.password);
+        onSignUp(formData.username, formData.password);
     };
 
     const handleKeyPress = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter') handleSubmit();
     };
-
+    console.log(error);
     return (
         <div className="min-h-screen bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-600 flex items-center justify-center p-4">
             <div className="bg-white rounded-3xl shadow-2xl overflow-hidden w-full max-w-md">
                 <div className="p-8">
                     <div className="text-center mb-8">
-                        <h2 className="text-3xl font-bold text-gray-800">Welcome Back</h2>
-                        <p className="text-gray-600 mt-2">Sign in to your account</p>
+                        <h2 className="text-3xl font-bold text-gray-800">Create Account</h2>
                     </div>
-
-                    {error && (
-                        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl mb-4">
-                            {error}
-                        </div>
-                    )}
-
-                    {success && (
-                        <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-xl mb-4">
-                            {success}
-                        </div>
-                    )}
 
                     <div className="space-y-4" onKeyDown={handleKeyPress}>
                         <div>
@@ -56,7 +46,7 @@ const SignIn: React.FC<{
                                     value={formData.username}
                                     onChange={handleInputChange}
                                     className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200"
-                                    placeholder="Enter your username"
+                                    placeholder="Choose a username"
                                 />
                             </div>
                         </div>
@@ -66,14 +56,14 @@ const SignIn: React.FC<{
                                 Password
                             </label>
                             <div className="relative">
-                                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                            
                                 <input
                                     type={showPassword ? 'text' : 'password'}
                                     name="password"
                                     value={formData.password}
                                     onChange={handleInputChange}
                                     className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200"
-                                    placeholder="Enter your password"
+                                    placeholder="Create a password"
                                 />
                                 <button
                                     type="button"
@@ -89,7 +79,7 @@ const SignIn: React.FC<{
                             onClick={handleSubmit}
                             className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white py-3 rounded-xl font-semibold hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer"
                         >
-                            Sign In
+                            Create Account
                             <ArrowRight className="w-5 h-5" />
                         </button>
                     </div>
@@ -99,12 +89,22 @@ const SignIn: React.FC<{
                             onClick={onSwitchMode}
                             className="text-emerald-600 hover:text-emerald-700 font-medium cursor-pointer"
                         >
-                            Don't have an account? Sign up
+                            Already have an account? Sign in
                         </button>
                     </div>
+                    {error.length > 0 && (
+                        <div className="mt-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl">
+                            {error}
+                        </div>
+                    )}
                 </div>
+
+                    {success.length > 0  && (
+                        <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-xl mb-4">
+                            {success}
+                        </div>
+                    )}
             </div>
         </div>
     );
 };
-export default SignIn;

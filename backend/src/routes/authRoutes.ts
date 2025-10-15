@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { UserModel } from "../db/db";
+import { UserModel } from "../db";
 import { Request, Response } from "express";
 import z from "zod";
 import bcrypt from "bcrypt";
