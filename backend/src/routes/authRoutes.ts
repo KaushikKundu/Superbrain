@@ -47,28 +47,44 @@ userRouter.post(
         try {
             const parsedBody = signinSchema.safeParse(req.body);
             if (parsedBody.success === false) {
-                return res.status(400).json("Invalid data");
+                return res.status(400).json({ message: "Invalid username or password format" });
             }
+
             const { username, password } = parsedBody.data;
             const existingUser = await UserModel.findOne({ username });
-            if (existingUser === null) {
-                res.status(403).json("no user found");
-                return;
-            }
-            const result = await bcrypt.compare(password, existingUser.password);
             
-            if (result == true) {
-                const token = jwt.sign(
-                    { id: existingUser._id },
-                    process.env.JWT_SECRET as string
-                );
-                res.status(200).json({ token });
-            } else {
-                res.status(403).json({ message: "wrong password" });
+            if (!existingUser) {
+                return res.status(401).json({ message: "Invalid username or password" });
             }
+
+            const isPasswordValid = await bcrypt.compare(password, existingUser.password);
+            
+            if (!isPasswordValid) {
+                return res.status(401).json({ message: "Invalid username or password" });
+            }
+
+            const token = jwt.sign(
+                { id: existingUser._id },
+                process.env.JWT_SECRET as string,
+                { expiresIn: '24h' } 
+            );
+            res.cookie('token', token, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'production',
+                sameSite: 'strict',
+                maxAge: 24 * 60 * 60 * 1000 
+            })
+            res.status(200).json({ 
+                message: "Login successful",
+                token,
+                user: {
+                    id: existingUser._id,
+                    username: existingUser.username
+                }
+            });
         } catch (e) {
-            console.log(e);
-            res.status(500).json("Internal server error");
+            console.error(e);
+            res.status(500).json({ message: "Internal server error" });
         }
     }
 );

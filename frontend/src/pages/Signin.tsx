@@ -5,6 +5,7 @@ import axios from "axios";
 import z from "zod";
 import { useNavigate } from "react-router-dom";
 
+
 const signinSchema = z.object({
     username: z.string().min(3).max(10),
     password: z.string().min(4).max(10),
@@ -24,9 +25,8 @@ function SignIn() {
         setError('');
         setSuccess('');
         const parsedData = signinSchema.safeParse({ username, password });
-        console.log(parsedData)
         if (!parsedData.success) {
-            setError(parsedData.error.message);
+            setError(parsedData.error.issues[0].message);
             return;
         }
         try {
@@ -35,8 +35,10 @@ function SignIn() {
                 password
             });
 
-            if (res.status === 201) {
-                setSuccess('Signed in successfully!');
+            if (res.status === 200) {
+                const {  message } = res.data;
+                setSuccess(message || 'Signed in successfully!');
+                navigate('/dashboard');
             }
         } catch (err: any) {
             if (err.response) {
@@ -52,7 +54,7 @@ function SignIn() {
             <div className="bg-white rounded-3xl shadow-2xl overflow-hidden w-full max-w-md">
                 <div className="p-8">
                     <div className="text-center mb-8">
-                        <h2 className="text-3xl font-bold text-gray-800">Create Account</h2>
+                        <h2 className="text-3xl font-bold text-gray-800">Sign In to Your Account</h2>
                     </div>
 
                     <div className="space-y-4">
@@ -67,7 +69,7 @@ function SignIn() {
                                     name="username"
                                     ref={usernameRef}
                                     className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200"
-                                    placeholder="Choose a username"
+                                    placeholder="enter a username"
                                 />
                             </div>
 
@@ -81,7 +83,7 @@ function SignIn() {
                                         name="password"
                                         ref={passwordRef}
                                         className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200"
-                                        placeholder="Create a password"
+                                        placeholder="enter a password"
                                     />
                                     <button
                                         onClick={() => setShowPassword(!showPassword)}
@@ -96,7 +98,7 @@ function SignIn() {
                                 onClick={handleSignIn}
                                 className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white py-3 rounded-xl font-semibold hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer"
                             >
-                                Create Account
+                                Sign In
                                 <ArrowRight className="w-5 h-5" />
                             </button>
                         </div>
@@ -106,7 +108,7 @@ function SignIn() {
                                 onClick={() => navigate('/signup')}
                                 className="text-emerald-600 hover:text-emerald-700 font-medium cursor-pointer"
                             >
-                                Already have an account? Sign in
+                                Don't have an account? Sign up
                             </button>
                         </div>
                         {error.length > 0 && (
