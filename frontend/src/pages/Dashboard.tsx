@@ -1,5 +1,4 @@
 import { Plus, Share2 } from "lucide-react";
-import { Button } from "../components/Button";
 import ContentModal from "../components/ContentModal";
 import { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
@@ -12,16 +11,23 @@ const Dashboard = () => {
     fetchData();
   }, [modalOpen]);
   
+  const username = localStorage.getItem("username")
   return (
-    <div>
-      <Sidebar />
+    <div className="flex min-h-screen bg-gray-50">
+      <Sidebar/>
       <ContentModal open={modalOpen} onClose={() => { setModalOpen(false) }} />
-      <main className="flex-1 p-8 ml-64 bg-gray-100">
+      <main className="flex-1 p-8 bg-gray-100">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-2xl font-bold">All Notes</h1>
+          <h1 className="text-3xl font-medium">Welcome Back, Kaushik</h1>
           <div className="flex gap-2">
-            <Button variant="secondary" fullWidth={false} text="Share content" startIcon={<Share2 size={18} />}></Button>
-            <Button variant="primary" fullWidth={false} text="Add content" startIcon={<Plus size={20} />} onClick={() => setModalOpen(true)}></Button>
+            <button className="flex items-center gap-2 bg-white text-gray-700 px-4 py-2 rounded-lg shadow hover:shadow-md transition-shadow duration-200">
+              <Share2 className="w-4 h-4"/>
+              Share
+            </button>
+            <button onClick={() => setModalOpen(true)} className="flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-teal-400 text-white px-4 py-2 rounded-lg shadow hover:shadow-md transition-shadow duration-200">
+              <Plus className="w-4 h-4"/>
+              New Note
+            </button>
           </div>
         </div>
 

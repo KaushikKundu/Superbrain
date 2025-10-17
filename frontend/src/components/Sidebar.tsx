@@ -1,21 +1,27 @@
-import { Brain } from "lucide-react";
+import { Home, Settings, User, LogOut, Brain } from "lucide-react";
 import SidebarItem from "./SidebarItem";
-import { BirdIcon, VideoIcon, File, Link} from "lucide-react";
+
 const Sidebar = () => {
-    return ( 
-        <aside className="w-64 h-screen fixed top-0 left-0 p-4 shadow-lg ">
-            <div className="flex items-center gap-2 cursor-pointer">
-                <span><Brain size={36}/></span>
-                <h1 className="text-2xl font-bold">SuperBrain</h1>
-            </div>
-            <div className="flex flex-col gap-6  mt-10">
-                <SidebarItem logo={<BirdIcon size={24}/>} text="Tweets"/>
-                <SidebarItem logo={<VideoIcon size={24}/>} text="Videos"/>
-                <SidebarItem logo={<File size={24}/>} text="Documents"/>
-                <SidebarItem logo={<Link size={24}/>} text="Links"/>
-            </div>
-        </aside>
-     );
-}
- 
+  return (
+    <aside className="w-64 min-h-screen bg-gradient-to-b from-emerald-800 to-emerald-950 text-white p-5 flex flex-col justify-between shadow-2xl">
+      <div>
+        <div className="mb-8 mt-4 flex items-center gap-3">
+            <Brain className="w-8 h-8 text-gray-400"/>
+          <h1 className="text-2xl font-bold tracking-wide">SuperBrain</h1>
+        </div>
+
+        <div className="space-y-2">
+          <SidebarItem logo={<Home />} text="Dashboard" />
+          <SidebarItem logo={<User />} text="Profile" />
+          <SidebarItem logo={<Settings />} text="Settings" />
+        </div>
+      </div>
+
+      <div className="border-t border-gray-700 pt-4">
+        <SidebarItem logo={<LogOut />} text="Logout" />
+      </div>
+    </aside>
+  );
+};
+
 export default Sidebar;

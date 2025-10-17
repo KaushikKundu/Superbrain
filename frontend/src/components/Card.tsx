@@ -1,7 +1,7 @@
 import { Share2, Trash2 } from 'lucide-react';
 import { Tweet } from 'react-tweet';
 import YouTube, { YouTubeProps } from 'react-youtube';
-import { Button } from '../components/Button';
+
 interface CardProps {
     title: string;
     link: string;
@@ -34,8 +34,7 @@ const Card = ({ title, link, type }: CardProps) => {
             <div className="flex justify-between items-start">
                 <h3 className="text-2xl font-semibold">{title}</h3>
                 <div className="flex gap-2">
-                    <Button startIcon={<Share2 size={14} />} variant='primary'></Button>
-                    <Button startIcon={<Trash2 size={14} />} variant='secondary'></Button>
+                   
                 </div>
             </div>
             <div>

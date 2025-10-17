@@ -80,12 +80,12 @@ userRouter.post(
             );
             res.cookie("token", token, {
                 httpOnly: true,
-                secure: process.env.NODE_ENV === "production" ? true : false, // false for localhost
+                secure: process.env.NODE_ENV === "production" ? true : false, 
                 sameSite:
                     process.env.NODE_ENV === "production" ? "none" : "lax",
                 maxAge: 24 * 60 * 60 * 1000,
             });
-            console.log("Response cookies:", res.getHeaders()["set-cookie"]);
+     
             res.status(200).json({
                 message: "Login successful",
                 token,
