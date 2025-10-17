@@ -1,12 +1,10 @@
 import { Router, Request, Response } from "express";
 import { ContentModel } from "../db";
-import { authMiddleware } from "../middlewares/auth";
 
 const contentRouter = Router();
 
 contentRouter.post(
   "/",
-  authMiddleware,
   async (req: Request, res: Response): Promise<any> => {
     const { title, link, type } = req.body;
     const userId = req.userId;
@@ -27,7 +25,6 @@ contentRouter.post(
 );
 contentRouter.get(
   "/",
-  authMiddleware,
   async (req: Request, res: Response): Promise<any> => {
     const allContent = await ContentModel.find({
       userId: req.userId,
@@ -38,7 +35,6 @@ contentRouter.get(
 
 contentRouter.delete(
   "/",
-  authMiddleware,
   async (req: Request, res: Response): Promise<any> => {
     //const content = await ContentModel.findById(req.params.id);
     const contentId = req.body.contentId;

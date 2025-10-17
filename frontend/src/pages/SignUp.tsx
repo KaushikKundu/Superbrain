@@ -48,6 +48,18 @@ function SignUp() {
         }
 
     };
+    const handleGuestLogin = async () => {
+        const res = await axios.post(BACKEND_URL + "api/v1/signin", {
+            username: "guest",
+            password: "guest123"
+        });
+        if(res.status === 200){
+            setSuccess('Logged in as Guest!');
+            navigate('/dashboard');
+        }else{
+            setError('Guest login failed.');
+        }
+    }
     return (
         <div className="min-h-screen bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-600 flex items-center justify-center p-4">
             <div className="bg-white rounded-3xl shadow-2xl overflow-hidden w-full max-w-md">
@@ -95,9 +107,16 @@ function SignUp() {
 
                             <button
                                 onClick={handleSignUp}
-                                className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white py-3 rounded-xl font-semibold hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer"
+                                className="w-full bg-gradient-to-r from-emerald-600 to-teal-400 text-white py-3 rounded-xl font-semibold hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer"
                             >
                                 Create Account
+                                <ArrowRight className="w-5 h-5" />
+                            </button>
+                            <button
+                                onClick={handleGuestLogin}
+                                className="w-full bg-gradient-to-r from-teal-50 to-teal-100 text-stone-700 py-3 rounded-xl font-semibold hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 mt-1.5 flex items-center justify-center gap-2 cursor-pointer"
+                            >
+                                Guest Login
                                 <ArrowRight className="w-5 h-5" />
                             </button>
                         </div>
@@ -105,7 +124,7 @@ function SignUp() {
                         <div className="mt-6 text-center">
                             <button
                                 onClick={() => navigate('/signin')}
-                                className="text-emerald-600 hover:text-emerald-700 font-medium cursor-pointer"
+                                className="text-gray-600  hover:text-emerald-700 font-medium cursor-pointer"
                             >
                                 Already have an account? Sign in
                             </button>
