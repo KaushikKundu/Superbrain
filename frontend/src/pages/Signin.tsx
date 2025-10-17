@@ -33,6 +33,8 @@ function SignIn() {
             const res = await axios.post(BACKEND_URL + "api/v1/signin", {
                 username,
                 password
+            }, {
+                withCredentials: true
             });
 
             if (res.status === 200) {

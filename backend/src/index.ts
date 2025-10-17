@@ -23,6 +23,10 @@ app.use("/api/v1/brain",authMiddleware,brainRouter);
 app.get("/", (req,res) => {
     res.send("Hello World");
 })
+app.get("/check", (req, res) => {
+  console.log(req.cookies);
+  res.json(req.cookies);
+});
 
 connectDb().then(() => {
     const PORT = process.env.PORT || 3000;

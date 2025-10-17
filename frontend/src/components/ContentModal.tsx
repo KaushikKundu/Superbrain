@@ -27,9 +27,7 @@ const ContentModal = ({ open, onClose }: ContentModalProps) => {
             link,
             type
         },{
-            headers:{
-                Authorization: localStorage.getItem("token")
-            }
+            withCredentials: true
         })
         onClose();
     }

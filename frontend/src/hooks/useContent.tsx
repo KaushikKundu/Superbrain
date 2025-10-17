@@ -10,11 +10,11 @@ export function useContent(){
     const [contents , setContents] = useState<Content[]>([]);
     async function fetchData(){
         await axios.get(`${BACKEND_URL}api/v1/content`,{
-            headers: {
-                "Authorization": localStorage.getItem("token")
-            }
+            withCredentials: true,
         }).then((res) => {
-            setContents(res.data.content);
+            const data = res.data;
+            // backend may return array directly or under `content` key
+            setContents(Array.isArray(data) ? data : data.content || []);
         }).catch((err) => {
             console.log(err);
         })
