@@ -9,7 +9,8 @@ interface ContentModalProps {
 }
 enum ContentType {
     YOUTUBE = "youtube",
-    TWITTER = "twitter"
+    TWITTER = "twitter",
+    BLOG = "blog"
 }
 const ContentModal = ({ open, onClose }: ContentModalProps) => {
     if (!open) return null;
@@ -20,7 +21,7 @@ const ContentModal = ({ open, onClose }: ContentModalProps) => {
     const handleSubmit = async () => {
         const title = titleRef.current?.value;
         const link = linkRef.current?.value;
-        console.log(title, link);
+
         await axios.post(BACKEND_URL + "api/v1/content", {
             title,
             link,
@@ -32,32 +33,60 @@ const ContentModal = ({ open, onClose }: ContentModalProps) => {
     }
     return (
         <>
-            <div className=" w-screen h-screen bg-gray-400 fixed top-0 left-0 flex justify-center items-center opacity-50">
-            </div>
-            <div className="flex justify-center items-center w-screen h-screen fixed z-100">
-                <form action={handleSubmit} className="w-full max-w-md p-6 bg-purple-100  rounded-lg shadow-md fixed ">
+            <div className="fixed inset-0 z-50 flex items-center justify-center">
+                <div
+                    className="absolute inset-0 bg-gray-900/60 backdrop-blur-sm"
+                    onClick={onClose}
+                />
+
+                <form
+                    onSubmit={handleSubmit}
+                    className="relative z-10 w-full max-w-md bg-white rounded-2xl shadow-2xl p-6 sm:p-8"
+                >
                     <div className="flex justify-between items-center mb-6">
-                        <h1 className="text-2xl text-gray-800 text-center">Enter Content Details</h1>
-                        <div className="cursor-pointer hover:rounded-2xl" onClick={onClose}>
-                            <CircleX />
-                        </div>
+                        <h1 className="text-2xl font-semibold text-gray-800">
+                            Enter Content Details
+                        </h1>
+                        <button
+                            type="button"
+                            onClick={onClose}
+                            className="p-1 rounded-full text-gray-500 hover:bg-gray-100 hover:text-gray-700 transition"
+                        >
+                            <CircleX size={22} />
+                        </button>
                     </div>
 
-                    <div>
+                    <div className="space-y-4 mb-4">
                         <Input placeholder="Enter content title" reference={titleRef} />
                         <Input placeholder="Enter content link" reference={linkRef} />
                     </div>
-                    <div className="flex justify-evenly">
 
+                    <div className="mb-6">
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Content Type
+                        </label>
+                        <select
+                            value={type}
+                            onChange={(e) => setType(e.target.value as ContentType)}
+                            className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-emerald-400 bg-white"
+                        >
+                            <option value={ContentType.YOUTUBE}>YouTube</option>
+                            <option value={ContentType.TWITTER}>Twitter</option>
+                            <option value={ContentType.BLOG}>Blog</option>
+                        </select>
                     </div>
-                    <div className="flex justify-center w-full">
-                        <button className="flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-teal-400 text-white px-4 py-2 rounded-lg shadow hover:shadow-md transition-shadow duration-200 cursor-pointer"
-                        onClick={()=> handleSubmit}>
+
+                    <div className="flex justify-center">
+                        <button
+                            type="submit"
+                            className="flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-600 to-teal-500 text-white font-medium px-5 py-2.5 rounded-lg shadow hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 cursor-pointer"
+                        >
                             Submit
                         </button>
                     </div>
                 </form>
-            </div >
+            </div>
+
         </>
     );
 }

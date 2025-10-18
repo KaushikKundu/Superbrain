@@ -30,16 +30,16 @@ contentRouter.get(
       userId: req.userId,
     }).populate("userId", "username");
     res.status(200).json(allContent);
+    console.log(allContent)
   }
 );
 
 contentRouter.delete(
-  "/",
+  "/:id",
   async (req: Request, res: Response): Promise<any> => {
-    //const content = await ContentModel.findById(req.params.id);
-    const contentId = req.body.contentId;
+    const contentId = req.params.id;
     try {
-      const deleted = await ContentModel.findOneAndDelete({
+      const deleted = await ContentModel.findByIdAndDelete({
         _id: contentId,
         userId: req.userId,
       });

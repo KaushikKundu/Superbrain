@@ -5,6 +5,7 @@ interface Content {
     title: string;
     link: string;
     type: "twitter" | "youtube";
+    id: string;
 }
 export function useContent(){
     const [contents , setContents] = useState<Content[]>([]);
@@ -12,12 +13,24 @@ export function useContent(){
         await axios.get(`${BACKEND_URL}api/v1/content`,{
             withCredentials: true,
         }).then((res) => {
-            const data = res.data;
-            // backend may return array directly or under `content` key
-            setContents(Array.isArray(data) ? data : data.content || []);
+            setContents(res.data);
+            // console.log(res.data);
         }).catch((err) => {
             console.log(err);
         })
+    }
+    const handleDelete = async (id:string) => {
+        try{
+            const res = await axios.delete(`BACKEND_URL/api/v1/content/${id}`, {
+                withCredentials: true,
+            });
+            if(res.status === 200){
+                console.log('Content deleted successfully');
+                setContents(contents.filter(c => c.id !== id));
+            }
+        }catch(err){
+            console.log(err);
+        }
     }
     useEffect(() => {
         fetchData();
@@ -28,5 +41,5 @@ export function useContent(){
         return () => clearInterval(interval);
     },[])
 
-    return {contents, fetchData};
+    return {contents, fetchData, handleDelete};
   }
