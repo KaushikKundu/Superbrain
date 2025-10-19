@@ -5,7 +5,7 @@ interface Content {
     title: string;
     link: string;
     type: "twitter" | "youtube";
-    id: string;
+    _id: string;
 }
 export function useContent(){
     const [contents , setContents] = useState<Content[]>([]);
@@ -14,19 +14,18 @@ export function useContent(){
             withCredentials: true,
         }).then((res) => {
             setContents(res.data);
-            // console.log(res.data);
         }).catch((err) => {
             console.log(err);
         })
     }
     const handleDelete = async (id:string) => {
         try{
-            const res = await axios.delete(`BACKEND_URL/api/v1/content/${id}`, {
+            const res = await axios.delete(`${BACKEND_URL}api/v1/content/${id}`, {
                 withCredentials: true,
             });
             if(res.status === 200){
                 console.log('Content deleted successfully');
-                setContents(contents.filter(c => c.id !== id));
+                setContents(contents.filter(c => c._id !== id));
             }
         }catch(err){
             console.log(err);
@@ -34,11 +33,6 @@ export function useContent(){
     }
     useEffect(() => {
         fetchData();
-        let interval = setInterval(() => {
-            fetchData();
-        }, 10000);
-
-        return () => clearInterval(interval);
     },[])
 
     return {contents, fetchData, handleDelete};

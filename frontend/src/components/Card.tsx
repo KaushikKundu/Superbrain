@@ -10,6 +10,7 @@ interface CardProps {
     onDelete: (id:string) => void;
 }
 const Card = ({ title, link, type, id ,onDelete}:CardProps) => {
+
     const getTweetId = (link: string) => {
         const match = link.match(/status\/(\d+)/);
         return match ? match[1] : "";

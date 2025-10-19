@@ -14,7 +14,6 @@ const Dashboard = () => {
     fetchData();
   }, [modalOpen]);
 
-  
   return (
     <div className="flex min-h-screen bg-gray-50">
       <Sidebar/>
@@ -37,10 +36,9 @@ const Dashboard = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {
             contents && contents.map((content,index) =>
-              <Card title={content.title} link={content.link} type={content.type} key={index} id={content.id} onDelete={handleDelete} />
+              <Card title={content.title} link={content.link} type={content.type} key={index} id={content._id} onDelete={handleDelete} />
             )
-          }
-
+          }  
         </div>
       </main>
     </div>

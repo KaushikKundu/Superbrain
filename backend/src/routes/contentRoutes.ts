@@ -38,14 +38,15 @@ contentRouter.delete(
   "/:id",
   async (req: Request, res: Response): Promise<any> => {
     const contentId = req.params.id;
+    console.log(contentId);
     try {
-      const deleted = await ContentModel.findByIdAndDelete({
+      const deleted = await ContentModel.findOneAndDelete({
         _id: contentId,
         userId: req.userId,
       });
       res.status(200).json(deleted);
     } catch (e) {
-      res.status(500).json(e);
+      res.status(500).json(e)
     }
   }
 );

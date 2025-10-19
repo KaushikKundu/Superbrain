@@ -27,7 +27,6 @@ userRouter.post(
             }
             const { username, password } = parsedBody.data;
             const existingUser = await UserModel.findOne({ username });
-            console.log(existingUser);
             if (existingUser != null) {
                 return res.status(403).json({ message: "User already exists" });
             }
