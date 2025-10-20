@@ -42,3 +42,4 @@ It can be improved in a lot of ways,
 - making it responsive(design wasn't a focus so I left it)
 - tag based searching, filtering
 
+![alt text](image.png)
