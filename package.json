@@ -1,0 +1,25 @@
+{
+  "name": "superbrain",
+  "version": "1.0.0",
+  "description": "Superbrain is your personal **second brain** — a minimal, secure web app built with the **MERN stack** that helps you **store, organize, and revisit** links to online content such as **tweets, YouTube videos, blogs**, and more.",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm run build:client && npm run build:server",
+    "build:client": "cd frontend && npm install && npm run build",
+    "build:server": "cd backend && npm install && npm run build",
+    "start": "npm run start:server & npm run start:client",
+    "start:server": "cd backend && npm run start",
+    "start:client": "cd frontend && npm run start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KaushikKundu/Superbrain.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KaushikKundu/Superbrain/issues"
+  },
+  "homepage": "https://github.com/KaushikKundu/Superbrain#readme"
+}
