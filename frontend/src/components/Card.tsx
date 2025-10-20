@@ -1,6 +1,8 @@
 import { Tweet } from 'react-tweet';
 import YouTube, { YouTubeProps } from 'react-youtube';
 import { ExternalLink, Trash2 } from 'lucide-react';
+// @ts-ignore: no type declarations for 'react-tiny-link'
+import { ReactTinyLink } from 'react-tiny-link';
 
 interface CardProps {
     title: string;
@@ -55,19 +57,19 @@ const Card = ({ title, link, type, id, onDelete }: CardProps) => {
                         <YouTube videoId={getYouTubeVideoId(link)} opts={options} id="video" />
                     </div>
                 )}
+                {
+                    type === "blog" && <div className="rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all p-4 bg-white">
+                        <ReactTinyLink
+                            cardSize="medium"
+                            showGraphic={true}
+                            maxLine={2}
+                            minLine={1}
+                            url={link}
+                        />
+                    </div>
+                }
             </div>
 
-            <div className="space-y-2">
-                <div className="flex flex-wrap gap-2">
-                    <span className="text-indigo-600 text-xs font-medium bg-indigo-50 px-2 py-1 rounded-full">
-                        #learning
-                    </span>
-                    <span className="text-pink-600 text-xs font-medium bg-pink-50 px-2 py-1 rounded-full">
-                        #youtube
-                    </span>
-                </div>
-                {/* <p className="text-sm text-gray-600 leading-relaxed">{description}</p> */}
-            </div>
         </div>
     );
 }
