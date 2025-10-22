@@ -12,7 +12,7 @@ const app = express();
 
 //middleware
 app.use(cors({
-    origin: "https://superbrain-wtro.vercel.app/",
+    origin: "https://superbrain-wtro.vercel.app",
     credentials: true,
 }));
 app.use(cookieParser());
