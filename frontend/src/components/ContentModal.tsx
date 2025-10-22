@@ -22,7 +22,7 @@ const ContentModal = ({ open, onClose }: ContentModalProps) => {
         const title = titleRef.current?.value;
         const link = linkRef.current?.value;
 
-        await axios.post(BACKEND_URL + "api/v1/content", {
+        await axios.post(BACKEND_URL + "/api/v1/content", {
             title,
             link,
             type
