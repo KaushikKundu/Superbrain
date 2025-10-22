@@ -11,6 +11,8 @@ const brainRoutes_1 = __importDefault(require("./routes/brainRoutes"));
 const cors_1 = __importDefault(require("cors"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const auth_1 = require("./middlewares/auth");
+const path_1 = __importDefault(require("path"));
+const fs_1 = __importDefault(require("fs"));
 const app = (0, express_1.default)();
 //middleware
 app.use((0, cors_1.default)({
@@ -22,10 +24,23 @@ app.use(express_1.default.json());
 app.use("/api/v1", authRoutes_1.default);
 app.use("/api/v1/content", auth_1.authMiddleware, contentRoutes_1.default);
 app.use("/api/v1/brain", auth_1.authMiddleware, brainRoutes_1.default);
-//route
-app.get("/", (req, res) => {
-    res.send("Hello World");
-});
+// Serve frontend when built (frontend/dist) — in production the backend can serve the static files.
+const staticPath = path_1.default.join(__dirname, '..', '..', 'frontend', 'dist');
+if (fs_1.default.existsSync(staticPath)) {
+    app.use(express_1.default.static(staticPath));
+    // Serve index.html for all non-API routes (SPA fallback)
+    app.get('*', (req, res, next) => {
+        if (req.path.startsWith('/api/'))
+            return next();
+        res.sendFile(path_1.default.join(staticPath, 'index.html'));
+    });
+}
+else {
+    //route
+    app.get("/", (req, res) => {
+        res.send("Hello World");
+    });
+}
 app.get("/check", (req, res) => {
     console.log(req.cookies);
     res.json(req.cookies);
