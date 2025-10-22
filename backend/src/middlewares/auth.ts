@@ -10,8 +10,8 @@ declare global {
     }
 }
 export const authMiddleware  = (req:Request, res:Response, next:NextFunction) => {
+    console.log( req.cookies);
     const token = req.cookies?.token;
-    console.log("token:"+ req.cookies);
 
     if (!token) {
         res.status(401).json({ message: "You are not logged in" });
