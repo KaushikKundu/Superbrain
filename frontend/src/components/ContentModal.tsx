@@ -79,6 +79,7 @@ const ContentModal = ({ open, onClose }: ContentModalProps) => {
                     <div className="flex justify-center">
                         <button
                             type="submit"
+                            onClick={() => handleSubmit()}
                             className="flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-600 to-teal-500 text-white font-medium px-5 py-2.5 rounded-lg shadow hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 cursor-pointer"
                         >
                             Submit
