@@ -10,7 +10,6 @@ declare global {
     }
 }
 export const authMiddleware  = (req:Request, res:Response, next:NextFunction) => {
-    console.log( req.cookies);
     const token = req.cookies?.token;
 
     if (!token) {

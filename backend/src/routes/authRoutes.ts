@@ -80,8 +80,7 @@ userRouter.post(
             res.cookie("token", token, {
                 httpOnly: true,
                 secure: process.env.NODE_ENV === "production" ? true : false, 
-                sameSite:
-                    process.env.NODE_ENV === "production" ? "none" : "lax",
+                sameSite:"none",
                 maxAge: 24 * 60 * 60 * 1000,
             });
      
