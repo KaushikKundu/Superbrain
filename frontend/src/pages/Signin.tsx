@@ -30,7 +30,7 @@ function SignIn() {
             return;
         }
         try {
-            const res = await axios.post(BACKEND_URL + "api/v1/signin", {
+            const res = await axios.post(BACKEND_URL + "/api/v1/signin", {
                 username,
                 password
             }, {

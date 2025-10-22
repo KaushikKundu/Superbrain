@@ -10,7 +10,7 @@ interface Content {
 export function useContent(){
     const [contents , setContents] = useState<Content[]>([]);
     async function fetchData(){
-        await axios.get(`${BACKEND_URL}api/v1/content`,{
+        await axios.get(`${BACKEND_URL}/api/v1/content`,{
             withCredentials: true,
         }).then((res) => {
             setContents(res.data);
@@ -20,7 +20,7 @@ export function useContent(){
     }
     const handleDelete = async (id:string) => {
         try{
-            const res = await axios.delete(`${BACKEND_URL}api/v1/content/${id}`, {
+            const res = await axios.delete(`${BACKEND_URL}/api/v1/content/${id}`, {
                 withCredentials: true,
             });
             if(res.status === 200){

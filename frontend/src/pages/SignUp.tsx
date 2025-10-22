@@ -30,7 +30,7 @@ function SignUp() {
             return;
         }
         try {
-            const res = await axios.post(BACKEND_URL + "api/v1/signup", {
+            const res = await axios.post(BACKEND_URL + "/api/v1/signup", {
                 username,
                 password
             });
@@ -49,7 +49,7 @@ function SignUp() {
 
     };
     const handleGuestLogin = async () => {
-        const res = await axios.post(BACKEND_URL + "api/v1/signin", {
+        const res = await axios.post(BACKEND_URL + "/api/v1/signin", {
             username: "guest",
             password: "guest123"
         });
